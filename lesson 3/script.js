@@ -1,49 +1,42 @@
 'use strict';
 
-let money,
-    income = 'Фриланс',
-    addExpenses,
-    deposit,
-    mission = 500000,
-    period,
-    budgetDay,
-    budgetMonth,
-    monthCosts1,
-    monthCosts2,
-    budgetMonthCosts1,
-    budgetMonthCosts2;
+let lang, lengArr, namePerson;
+//a
+lang = prompt('Введите en либо ru');
 
-money = prompt('Ваш месячный доход?');    
-addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-addExpenses = addExpenses.split(',');
-deposit = confirm('Есть ли у вас депозит в банке?');
-monthCosts1 = prompt('Какие обязательные ежемесячные расходы у вас есть?');
-budgetMonthCosts1 = prompt('Во сколько это обойдется?');
-monthCosts2 = prompt('Какие обязательные ежемесячные расходы у вас есть?');
-budgetMonthCosts2 = prompt('Во сколько это обойдется?');
-budgetMonth = (Number(money) - (Number(budgetMonthCosts1) + Number(budgetMonthCosts2)));
-period = Math.ceil(mission / budgetMonth);
-budgetDay = Math.floor(budgetMonth / 30);
-
-if (budgetDay >= 800) {
-    console.log('Высокий уровень дохода');
-} else if (budgetDay >= 300 && budgetDay < 800) {
-    console.log('Средний уровень дохода');
-} else if (budgetDay >= 0 && budgetDay < 300) {
-    console.log('Низкий уровень дохода');
-} else if ( budgetDay < 0) {
-    console.log('Что то пошло не так');
+console.log('Через if:');
+if (lang === 'en') {
+    console.log('Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday');	
+} else if (lang === 'ru'){
+    console.log('Понедельник, Вторник, Среда, Четверг, Пятница,	Суббота, Воскресенье');
+} else {
+    console.log('неверно!');
 }
 
-console.log('income length: ', income.length);
-console.log('Цель заработать ' + mission + ' рублей/долларов/гривен/юани');
-console.log('addExpenses: ', addExpenses);
-console.log('money: ' + typeof money,'income: ' + typeof income,'deposit: ' + typeof deposit);
-console.log('Бюджет на месяц: ', budgetMonth);
-console.log('Цель будет достигнута за: ' + period + ' месяцев');
-console.log('Бюджет на день: ', budgetDay);
+//b
+console.log('Через Switch:');
+switch (lang) {
+    case 'en':
+        console.log('Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday');
+    break;
+    case 'ru':
+        console.log('Понедельник, Вторник, Среда, Четверг, Пятница,	Суббота, Воскресенье');
+    break;    
+    default:
+        console.log('неверно!');            
+}
 
+//c
+console.log('Через многомерный массив массив:');
 
+lengArr = [
+    ['en', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    ['ru', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
+];
+lengArr = lengArr.filter(item => item[0] === lang).forEach(item => console.log(item));
 
+//Второе задание
+namePerson = prompt('Введите имя');
 
+console.log(namePerson === 'Артем' ? 'Директор' : namePerson === 'Максим' ? 'Преподаватель' : 'Студент');
 
