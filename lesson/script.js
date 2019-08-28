@@ -34,19 +34,19 @@ function deposit() {
 function getExpensesMonth() {
     let sum = 0;        
         for (let i = 0; i < 2; i++) {
-         if (i === 0){
-             monthCosts1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Sport');
-         }
-         if (i === 1){
-            monthCosts1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Car');
-         }
-            sum += +prompt('Во сколько это обойдется?');
-        while (isNaN(sum) || sum === '' || sum === null) {
-            sum = 0;
-            sum += +prompt('Во сколько это обойдется?');
+            if (i === 0){
+                monthCosts1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Sport');
+            }
+            if (i === 1){
+                monthCosts1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Car');
+            }
+                sum += +prompt('Во сколько это обойдется?');
+            while (isNaN(sum) || sum === '' || sum === null) {
+                sum = 0;
+                sum += +prompt('Во сколько это обойдется?');
+            }
         }
-        }
-    return parseFloat(sum);
+    return sum;
 }
 
 getExpensesMonthOne = getExpensesMonth();
@@ -68,7 +68,7 @@ function getTargetMonth() {
 getTargetMonthOne = getTargetMonth();
 
 function budgetDayOne() {
-    budgetDay = Math.floor(getExpensesMonthOne / 30);
+    budgetDay = Math.floor(accumulatedMonth / 30);
     if (budgetDay < 0) {
         return 'Что-то пошло не так';
     }else {
