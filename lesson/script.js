@@ -6,7 +6,7 @@ function funcStr(str) {
     if (typeof str !== typeof str.toString()) {
         return 'Введена не строка'; 
     } else if ((typeof str === typeof str.toString()) && (str.length >= 30)) {
-        return str.substr(0, 30).trim() + '...';
+        return str.trim().substr(0, 30) + '...';
     } else if (str.length < 30) {
         return str.trim();
     }
