@@ -17,9 +17,9 @@ let money,
 function start() {
     do{
         money = prompt('Ваш месячный доход?', 50000);
-        return money;
     }
     while(isNaN(money) || money === '' || money === null);
+    return money;
 }
 startOne = start();
 
@@ -84,7 +84,7 @@ function getStatusIncome() {
     return 'income length: ' + income.length;
 }
 
-console.log('Money: ', startOne);
+console.log('Money: ', money);
 console.log(addExpenses());
 console.log(deposit());
 console.log(getStatusIncome());
