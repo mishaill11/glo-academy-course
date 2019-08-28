@@ -24,7 +24,7 @@ function start() {
 startOne = start();
 
 function addExpenses() {
-    return prompt('Перечислите возможные расходы за рассчитываемый период через запятую').split(',');
+    return prompt('Перечислите возможные расходы за рассчитываемый период через запятую').split(', ');
 }
 
 function deposit() {
@@ -32,21 +32,17 @@ function deposit() {
 }
 
 function getExpensesMonth() {
-    let sum = 0;
-        for (let i = 0; i < 2; i++) {
-            if (i === 0) {
-                monthCosts1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Спорт');
-            }
-            if (i === 1) {
-                monthCosts2 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Отдых');
-            }
-            sum += +prompt('Во сколько это обойдется?');    
+    let sum = 0, i = 0;
+    for (let i = 0; i < 2; i++) { 
+        if (i === 0) {
+            monthCosts1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Спорт');
         }
-    if (isNaN(sum)) {
-        getExpensesMonth();
-    }else{
-        return +sum;
+        if (i === 1) {
+            monthCosts2 = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Отдых');
+        }
+        sum += +prompt('Во сколько это обойдется?');       
     }
+    return sum;
 }
 
 getExpensesMonthOne = getExpensesMonth();
