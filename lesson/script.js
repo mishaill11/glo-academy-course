@@ -37,24 +37,42 @@ let appData = {
         let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
         appData.addExpenses = addExpenses.toLowerCase().split(', ');
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
-    },
-    getExpensesMonth: function() {
-        let sum = 0, question;        
+        let answer = 0, question;        
         for (let i = 0; i < 2; i++) {
             if (i === 0){
-                appData.expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Sport');
+                do{
+                    question = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Sport');
+                    answer = +prompt('Во сколько это обойдется?'); 
+                    appData.expenses[question] = answer;
+                } while (isNaN(answer) || answer === '' || answer === null);
             }
             if (i === 1){
-                appData.expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Car');
+                do {
+                    question = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Car');
+                    answer = +prompt('Во сколько это обойдется?');
+                    appData.expenses[question] = answer;
+                } while (isNaN(answer) || answer === '' || answer === null);
             }
-            do{
-                question = prompt('Во сколько это обойдется?');
-            }
-            while (isNaN(sum) || sum === '' || sum === null);   
-            sum += +question;
+        console.log(appData.expenses);      
         }
-    appData.expensesMonth = sum;
-    return appData.expensesMonth;
+    },
+    getExpensesMonth: function() {
+    //     let sum = 0, question;        
+    //     for (let i = 0; i < 2; i++) {
+    //         if (i === 0){
+    //             appData.expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Sport');
+    //         }
+    //         if (i === 1){
+    //             appData.expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Car');
+    //         }
+    //         do{
+    //             question = prompt('Во сколько это обойдется?');
+    //         }
+    //         while (isNaN(sum) || sum === '' || sum === null);   
+    //         sum += +question;
+    //     }
+    // appData.expensesMonth = sum;
+    // return appData.expensesMonth;
     },
     getAccumulatedMonth: function() {
         appData.accumulatedMonth = appData.budget - appData.expensesMonth;
@@ -80,6 +98,7 @@ let appData = {
         }
     }
 };
+appData.asking();
 appData.getExpensesMonth();    
 appData.getAccumulatedMonth();
 appData.getBudgetDay();
