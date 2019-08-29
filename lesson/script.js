@@ -53,26 +53,15 @@ let appData = {
                     appData.expenses[question] = answer;
                 } while (isNaN(answer) || answer === '' || answer === null);
             }
-        console.log(appData.expenses);      
+            console.log(appData.expenses);      
         }
     },
     getExpensesMonth: function() {
-    //     let sum = 0, question;        
-    //     for (let i = 0; i < 2; i++) {
-    //         if (i === 0){
-    //             appData.expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Sport');
-    //         }
-    //         if (i === 1){
-    //             appData.expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Car');
-    //         }
-    //         do{
-    //             question = prompt('Во сколько это обойдется?');
-    //         }
-    //         while (isNaN(sum) || sum === '' || sum === null);   
-    //         sum += +question;
-    //     }
-    // appData.expensesMonth = sum;
-    // return appData.expensesMonth;
+        let sum = 0;
+        for (let key in appData.expenses) {
+            appData.expensesMonth += appData.expenses[key];
+        }
+        console.log('expensesMonth: ' + appData.expensesMonth);
     },
     getAccumulatedMonth: function() {
         appData.accumulatedMonth = appData.budget - appData.expensesMonth;
