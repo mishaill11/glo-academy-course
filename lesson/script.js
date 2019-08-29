@@ -18,7 +18,6 @@ let appData = {
     budgetDay: 0,
     budgetMonth: 0,
     expensesMonth: 0,
-    accumulatedMonth: 0,
     expenses: {},
     deposit: false,
     addExpenses: [],
@@ -49,7 +48,6 @@ let appData = {
         for (let key in appData.expenses) {
             appData.expensesMonth += appData.expenses[key];
         }
-        //console.log('expensesMonth: ' + appData.expensesMonth);
     },
     getBudget: function() {
         appData.budgetMonth = appData.budget - appData.expensesMonth;
@@ -79,20 +77,11 @@ appData.getStatusIncome();
 function about() {
     console.log('Наша программа включает в себя данные: ');
     for (let key in appData) {
-        
-            console.log(key);
-        
+        console.log(key);
     }
 }
 
-
-
-//console.log('Доход: ', appData.budget);
-//console.log(appData.asking);
-
 console.log('Месячные расходы: ', appData.expensesMonth);
-//console.log('Бюджет на день: ', appData.budgetDay < 0 ? 'Что то пошло не так' : appData.budgetDay);
-//console.log('Цель накопить: ' + appData.mission);
 console.log('Период накопления: ', appData.period < 0 ? 'Цель не будет достигнута' : (Math.ceil(appData.period)) + ' месяцев');
 about();
 
