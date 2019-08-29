@@ -10,8 +10,7 @@ let money,
     getExpensesMonthOne,
     accumulatedMonth,
     startOne,
-    getTargetMonthOne,
-    rem;
+    getTargetMonthOne;
 
 
 function start() {
@@ -57,42 +56,39 @@ function getAccumulatedMonth() {
 accumulatedMonth = getAccumulatedMonth();
 
 function getTargetMonth() {
-    period = Math.ceil(mission / accumulatedMonth);
-    if (period < 0) {
-        return 'Цель не будет достигнута';
-    } else {
-        return period;
-    }
+    return mission / accumulatedMonth;
 }
 
 getTargetMonthOne = getTargetMonth();
 
-function budgetDayOne() {
-    budgetDay = Math.floor(accumulatedMonth / 30);
-    if (budgetDay < 0) {
-        return 'Что-то пошло не так';
-    }else {
-        return budgetDay;
-    }
-}
+budgetDay = Math.floor(accumulatedMonth / 30);
 
 function showTypeof() {
     return 'money: ' + typeof money + ' income: ' + typeof income +' deposit: ' + typeof deposit;
 }
 
-function getStatusIncome() {
-    return 'income length: ' + income.length;
-}
+
+let getStatusIncome = function(){
+    if (budgetDay >= 800) {
+        console.log('Высокий уровень дохода');
+    } else if (budgetDay >= 300 && budgetDay < 800) {
+        console.log('Средний уровень дохода');
+    } else if (budgetDay >= 0 && budgetDay < 300) {
+        console.log('Низкий уровень дохода');
+    } else if ( budgetDay < 0) {
+        console.log('Что то пошло не так');
+    }
+};
 
 console.log('Money: ', money);
 console.log(addExpenses());
 console.log(deposit());
-console.log(getStatusIncome());
+console.log('Уровень дохода: ', getStatusIncome());
 console.log(showTypeof());
 console.log('Месячные расходы: ', getExpensesMonthOne);
-console.log('Бюджет на день: ', budgetDayOne());
+console.log('Бюджет на день: ', budgetDay < 0 ? 'Что то пошло не так' : budgetDay);
 console.log('Накопления за период: ', getTargetMonthOne * accumulatedMonth);
-console.log('Период накопления: ', getTargetMonthOne);
+console.log('Период накопления: ', getTargetMonthOne < 0 ? 'Цель не будет достигнута' : Math.ceil(getTargetMonthOne));
 
 
 
