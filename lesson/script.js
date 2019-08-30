@@ -23,7 +23,7 @@ let appData = {
     percentDeposit: 0,
     moneyDeposit: 0,
     addExpenses: [],
-    common: [],
+    possibleExpenses: [],
     asking: function() {
 
         if (confirm('Есть ли у вас доп. источник зароботка?')) {
@@ -36,19 +36,15 @@ let appData = {
             } while (isNaN(cashIncome) || cashIncome == '' || cashIncome == null);
             appData.income[itemIncome] = cashIncome;
         }
-        let arrFirst, arr = [], mass = '', addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+        let arrayExpenses = [], addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
         appData.addExpenses = addExpenses.toLowerCase().split(', ');
-        appData.addExpenses.forEach(function(item){
-            arr = item.split('');
-            arrFirst = arr[0].toUpperCase();
-            arr.shift();
-            arr.unshift(arrFirst);
-            //console.log('arr: ', arr);
-            arr = arr.join('');
-            mass = arr.split(' ');
-            //console.log('arr.join(): ', arr.join(''));
-            console.log('arr: ', mass);
-        });
+        for (let key in appData.addExpenses) {
+            let possibleExpenses = appData.addExpenses[key];
+            possibleExpenses = possibleExpenses.trim();
+            possibleExpenses = possibleExpenses[0].toUpperCase() + possibleExpenses.slice(1).toLowerCase();
+            arrayExpenses.push(possibleExpenses);
+        }
+        appData.possibleExpenses = arrayExpenses.join(', ');
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
         let answer = 0, question;        
         for (let i = 0; i < 2; i++) {
@@ -120,11 +116,12 @@ function about() {
     }
 }
 
+console.log('Возможные расходы: ', appData.possibleExpenses);
 console.log('Месячные расходы: ', appData.expensesMonth);
+console.log('Накопления за период', appData.calcSavedMoney());
+console.log('Процент: ', appData.percentDeposit,' Сумма: ', appData.moneyDeposit);
 console.log('Период накопления: ', appData.period < 0 ? 'Цель не будет достигнута' : appData.period + ' месяцев');
 about();
-console.log(appData.addExpenses);
-console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSavedMoney());
 
 
 
