@@ -32,14 +32,14 @@ let appData = {
                     question = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Sport');
                     answer = +prompt('Во сколько это обойдется?'); 
                     appData.expenses[question] = answer;
-                } while (isNaN(answer) || answer === '' || answer === null);
+                } while (isNaN(answer) || answer == '' || answer == null);
             }
             if (i === 1){
                 do {
                     question = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Car');
                     answer = +prompt('Во сколько это обойдется?');
                     appData.expenses[question] = answer;
-                } while (isNaN(answer) || answer === '' || answer === null);
+                } while (isNaN(answer) || answer == '' || answer == null);
             }     
         }
     },
