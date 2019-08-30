@@ -36,7 +36,10 @@ let appData = {
             } while (isNaN(cashIncome) || cashIncome == '' || cashIncome == null);
             appData.income[itemIncome] = cashIncome;
         }
-        let arrayExpenses = [], addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+        let arrayExpenses = [], addExpenses;
+        do{
+            addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+        } while (!isNaN(addExpenses) || addExpenses == null);
         appData.addExpenses = addExpenses.toLowerCase().split(', ');
         for (let key in appData.addExpenses) {
             let possibleExpenses = appData.addExpenses[key];
@@ -51,16 +54,20 @@ let appData = {
             if (i === 0){
                 do{
                     question = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Sport');
+                } while(!isNaN(question) || question == null);
+                do{
                     answer = +prompt('Во сколько это обойдется?'); 
-                    appData.expenses[question] = answer;
                 } while (isNaN(answer) || answer == '' || answer == null);
+                appData.expenses[question] = answer;
             }
             if (i === 1){
-                do {
+                do{
                     question = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Car');
-                    answer = +prompt('Во сколько это обойдется?');
-                    appData.expenses[question] = answer;
+                } while(!isNaN(question) || question == null);
+                do{
+                    answer = +prompt('Во сколько это обойдется?'); 
                 } while (isNaN(answer) || answer == '' || answer == null);
+                appData.expenses[question] = answer;
             }     
         }
     },
