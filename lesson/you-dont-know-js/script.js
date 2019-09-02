@@ -22,6 +22,7 @@ body.removeChild(ad);
 
 book2.insertBefore(book2.children[6], book2.children[4]);
 book2.insertBefore(book2.children[8], book2.children[5]);
+book2.insertBefore(book2.children[2], book2.children[10]);
 
 book5.insertBefore(book5.children[9], book5.children[3]);
 book5.insertBefore(book5.children[2], book5.children[6]);
