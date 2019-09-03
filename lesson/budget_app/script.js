@@ -182,12 +182,14 @@ let appData = {
 
 
 placeHolderName.forEach(function(item) {
-    item.addEventListener('blur', function(event){
-        if (!isNaN(event.target.value)) {
-            alert('Вводите только буквы!');
-            event.target.value = '';
-            return;
-        }
+    // item.addEventListener('keydown', function(event){
+    //     if (!isNaN(event.target.value)) {
+    //         event.target.value = '';
+    //         return;
+    //     }
+    // });
+    item.addEventListener('input', function(event) {
+        event.target.value = event.target.value.replace(/[^а-яА-ЯёЁ .?!,]/i,'');
     });
 });
 
