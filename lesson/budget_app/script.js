@@ -79,6 +79,8 @@ let appData = {
         cancel.addEventListener('click', () => {
             cloneExpensesItem.children[0].value = '';
             cloneExpensesItem.children[1].value = '';
+            cloneExpensesItem.remove();
+            plusExpenses.style.display = 'block';
         });
         placeHolderName = data.querySelectorAll('input[placeholder=Наименование]');
         placeHolderSum = data.querySelectorAll('input[placeholder=Сумма]');
@@ -97,6 +99,8 @@ let appData = {
         cancel.addEventListener('click', () => {
             cloneIncomeItem.children[0].value = '';
             cloneIncomeItem.children[1].value = '';
+            cloneIncomeItem.remove();
+            plusIncome.style.display = 'block';
         });
         placeHolderName = data.querySelectorAll('input[placeholder=Наименование]');
         placeHolderSum = data.querySelectorAll('input[placeholder=Сумма]');
