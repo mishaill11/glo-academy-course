@@ -35,7 +35,6 @@ let expensesItems = document.querySelectorAll('.expenses-items'),
 
 
 
-
 class AppData {
     constructor(){
         this.income = {};
@@ -70,11 +69,24 @@ class AppData {
         this.getAdd(this.addIncome);
         this.getIncome();
         this.blockInput();
-        
+        this.localStorage();
         this.showResult();
-
+        // console.log(document.cookie = name=this.budgetMonth);
+        // console.log(document.cookie = name);
+        
         calculate.style.display = 'none';
         cancel.style.display = 'block';
+
+    }
+    localStorage() {
+        localStorage.setItem('budgetMonthValue', this.budgetMonth);
+        localStorage.setItem('budgetDayValue', this.budgetDay);
+        localStorage.setItem('expensesMonthValue', this.expensesMonth);
+        localStorage.setItem('additionalExpensesValue', this.addExpenses.join(', '));
+        localStorage.setItem('additionalIncomeValue', this.addIncome.join(', '));
+        localStorage.setItem('targetMonthValue', this.getTargetMonth());
+        localStorage.setItem('incomePeriodValue', this.calcPeriod());
+        localStorage.setItem('allInput', allInputs.values);
     }
     addBlock(cls, itms, btn) {
         let cloneItem = itms[0].cloneNode(true);
@@ -118,13 +130,13 @@ class AppData {
         }
     }
     showResult() {
-        budgetMonthValue.value = this.budgetMonth;
-        budgetDayValue.value = this.budgetDay;
-        expensesMonthValue.value = this.expensesMonth;
-        additionalExpensesValue.value = this.addExpenses.join(', ');
-        additionalIncomeValue.value = this.addIncome.join(', ');
-        targetMonthValue.value = this.getTargetMonth();
-        incomePeriodValue.value = this.calcPeriod();
+        budgetMonthValue.value = localStorage.getItem('budgetMonthValue');
+        budgetDayValue.value = localStorage.getItem('budgetDayValue');
+        expensesMonthValue.value = localStorage.getItem('expensesMonthValue');
+        additionalExpensesValue.value = localStorage.getItem('additionalExpensesValue')/*.join(', ')*/;
+        additionalIncomeValue.value = localStorage.getItem('additionalIncomeValue')/*.join(', ')*/;
+        targetMonthValue.value = localStorage.getItem('targetMonthValue');
+        incomePeriodValue.value = localStorage.getItem('incomePeriodValue');
         periodSelect.addEventListener('mouseup', () => {
             periodAmount.textContent = periodSelect.value;
             incomePeriodValue.value = this.calcPeriod();
@@ -217,6 +229,7 @@ class AppData {
         calculate.style.display = 'block';
         cancel.style.display = 'none';
         depositBank.disabled = false;
+        localStorage.clear();
     }
     checkOut() {
         placeHolderName.forEach((item) => {
@@ -269,20 +282,20 @@ class AppData {
                 appData.deposit = 'false';
             }
         });
+        document.addEventListener('DOMContentLoaded', () => {
+            this.showResult();
+            if(budgetMonthValue.value !== ''){
+                this.blockInput();
+                calculate.style.display = 'none';
+                cancel.style.display = 'block';
+            }
+        });
     }
 }
 const appData = new AppData();
 
 appData.checkOut();
 appData.eventsListeners();
-
-
-
-
-
-
-//console.log('Период накопления: ', appData.period < 0 ? 'Цель не будет достигнута' : appData.period + ' месяцев');
-
 
 
 
