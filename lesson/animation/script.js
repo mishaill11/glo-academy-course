@@ -3,7 +3,7 @@ let circle = document.querySelector('.redSquare'),
     play = document.querySelector('.play'),
     reset = document.querySelector('.reset'),
     count = 0,
-    animate = false,
+    animate = true,
     move;
 let moveCircle = function() {
     move = requestAnimationFrame(moveCircle);
@@ -16,13 +16,13 @@ let moveCircle = function() {
     }
 };
 
-play.addEventListener('click', function(){
+play.addEventListener('click', () =>{
     if (animate){
-        move = requestAnimationFrame(moveCircle);
+        requestAnimationFrame(moveCircle);
         animate = false;
     } else {
         animate = true;
-        cancelAnimationFrame(move);
+       cancelAnimationFrame(move);
     }
 });
 
