@@ -38,4 +38,117 @@ window.addEventListener('DOMContentLoaded', () => {
         let time = setInterval(updateClock, 1000);   
     }
     countTimer();
+
+    function showMenu() {
+        let btnMenu = document.querySelector('.menu'),
+            menu = document.querySelector('menu'),
+            closeBtn = document.querySelector('.close-btn'),
+            menuItems = menu.querySelectorAll('ul>li'),
+            popup = document.querySelector('.popup'),
+            popupContent = document.querySelector('.popup-content'),
+            popupBtn = document.querySelectorAll('.popup-btn'),
+            popupClose = document.querySelector('.popup-close'),
+            scrollBtn = document.querySelector('a[href="#service-block"]'),
+            allDiv = document.querySelectorAll('#service-block, #portfolio, #calc, #companies, #command, #connect'),
+            count = 20;
+             console.log(allDiv);
+        console.dir(document.documentElement);
+        function closeMenu() {
+            menu.classList.toggle('active-menu');
+        }
+
+        btnMenu.addEventListener('click', closeMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        menuItems.forEach((elem) => elem.addEventListener('click', closeMenu));
+        popupContent.style.transform = `translateY(-100%)`;
+        
+        function step(){
+            let move = requestAnimationFrame(step);
+            count--;
+            if (count >= 0 && document.documentElement.clientWidth >= 600){
+                popupContent.style.transform = `translateY(-${count}%)`;                
+            } else {
+                popupContent.style.transform = `translateY(0)`;
+                cancelAnimationFrame(move);
+            }
+        }
+        
+        let scroll = document.documentElement.scrollTop;
+
+        menuItems.forEach((elem) =>{
+            function pageMove() {
+                let move = requestAnimationFrame(pageMove);
+                scroll+=23.5;
+                if (elem.textContent === "Наши услуги"){
+                    if (scroll <= allDiv[0].offsetTop){
+                        document.documentElement.scrollTop = scroll;
+                    } 
+                    else {
+                        cancelAnimationFrame(move);
+                    }
+                }else if (elem.textContent === "Портфолио"){
+                    if (scroll <= allDiv[1].offsetTop){
+                        document.documentElement.scrollTop = scroll;
+                    } 
+                    else {
+                        cancelAnimationFrame(move);
+                    }
+                }else if (elem.textContent === "Калькулятор стоимости"){
+                    if (scroll <= allDiv[2].offsetTop){
+                        document.documentElement.scrollTop = scroll;
+                    } 
+                    else {
+                        cancelAnimationFrame(move);
+                    }
+                }else if (elem.textContent === "Наша команда"){
+                    if (scroll <= allDiv[4].offsetTop){
+                        document.documentElement.scrollTop = scroll;
+                    } 
+                    else {
+                        cancelAnimationFrame(move);
+                    }
+                }else if (elem.textContent === "Остались вопросы?"){
+                    if (scroll <= allDiv[5].offsetTop){
+                        document.documentElement.scrollTop = scroll;
+                    } 
+                    else {
+                        cancelAnimationFrame(move);
+                    }
+                }
+            }
+            elem.addEventListener('click', () => {
+                requestAnimationFrame(pageMove);
+                scroll = document.documentElement.scrollTop; 
+                
+            });
+        });
+
+        function firstSlide(){
+            let move = requestAnimationFrame(firstSlide);
+            scroll+=10;
+            if (scroll <= allDiv[0].offsetTop){
+                document.documentElement.scrollTop = scroll;
+            } 
+            else {
+                cancelAnimationFrame(move);
+            }
+        }
+        
+        popupBtn.forEach((elem) => elem.addEventListener('click', () => {
+            popup.style.display = 'block';
+            requestAnimationFrame(step);
+        }));
+
+        popupClose.addEventListener('click', () => {
+            popup.style.display = 'none';
+            popupContent.style.transform = `translateY(-100%)`;
+            count = 20;
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            requestAnimationFrame(firstSlide);
+            scroll = document.documentElement.scrollTop; 
+        });
+    }
+    showMenu();
 });
