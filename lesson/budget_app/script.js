@@ -34,7 +34,6 @@ let expensesItems = document.querySelectorAll('.expenses-items'),
     incomeItems = document.querySelectorAll('.income-items');
 
 
-
 class AppData {
     constructor(){
         this.income = {};
@@ -70,8 +69,11 @@ class AppData {
         this.getIncome();
         this.blockInput();
         this.localStorage();
+        this.setCoockie();
         this.showResult();
-        // console.log(document.cookie = name=this.budgetMonth);
+        
+        
+        //document.cookie = 'budgetmonth=eee';
         // console.log(document.cookie = name);
         
         calculate.style.display = 'none';
@@ -87,6 +89,18 @@ class AppData {
         localStorage.setItem('targetMonthValue', this.getTargetMonth());
         localStorage.setItem('incomePeriodValue', this.calcPeriod());
         localStorage.setItem('allInput', allInputs.values);
+        
+    }
+    setCoockie() {
+        document.cookie = 'isLoad=true';
+        document.cookie = `budgetMonthValue= ${this.budgetMonth}`; 
+        document.cookie = `budgetDayValue= ${this.budgetDay}`;
+        document.cookie = `expensesMonthValue= ${this.expensesMonth}`;
+        document.cookie = `additionalExpensesValue= ${this.addExpenses.join(', ')}`;
+        document.cookie = `additionalIncomeValue= ${this.addIncome.join(', ')}`;
+        document.cookie = `targetMonthValue= ${this.getTargetMonth()}`;
+        document.cookie = `incomePeriodValue= ${this.calcPeriod()}`;
+        console.log((document.cookie = `budgetMonthValue= ${this.budgetMonth}`));
     }
     addBlock(cls, itms, btn) {
         let cloneItem = itms[0].cloneNode(true);
