@@ -69,12 +69,11 @@ class AppData {
         this.getIncome();
         this.blockInput();
         this.localStorage();
-        this.setCoockie();
+        this.setCoockie(3600);
+        
+        
+        
         this.showResult();
-        
-        
-        //document.cookie = 'budgetmonth=eee';
-        // console.log(document.cookie = name);
         
         calculate.style.display = 'none';
         cancel.style.display = 'block';
@@ -88,19 +87,30 @@ class AppData {
         localStorage.setItem('additionalIncomeValue', this.addIncome.join(', '));
         localStorage.setItem('targetMonthValue', this.getTargetMonth());
         localStorage.setItem('incomePeriodValue', this.calcPeriod());
-        localStorage.setItem('allInput', allInputs.values);
         
     }
-    setCoockie() {
-        document.cookie = 'isLoad=true';
-        document.cookie = `budgetMonthValue= ${this.budgetMonth}`; 
-        document.cookie = `budgetDayValue= ${this.budgetDay}`;
-        document.cookie = `expensesMonthValue= ${this.expensesMonth}`;
-        document.cookie = `additionalExpensesValue= ${this.addExpenses.join(', ')}`;
-        document.cookie = `additionalIncomeValue= ${this.addIncome.join(', ')}`;
-        document.cookie = `targetMonthValue= ${this.getTargetMonth()}`;
-        document.cookie = `incomePeriodValue= ${this.calcPeriod()}`;
-        console.log((document.cookie = `budgetMonthValue= ${this.budgetMonth}`));
+    setCoockie(time) {
+        document.cookie = `isLoad=true; max-age=${time}`;
+        document.cookie = `budgetMonthValue= ${this.budgetMonth}; max-age=${time}`; 
+        document.cookie = `budgetDayValue= ${this.budgetDay}; max-age=${time}`;
+        document.cookie = `expensesMonthValue= ${this.expensesMonth}; max-age=${time}`;
+        document.cookie = `additionalExpensesValue= ${this.addExpenses.join(', ')}; max-age=${time}`;
+        document.cookie = `additionalIncomeValue= ${this.addIncome.join(', ')}; max-age=${time}`;
+        document.cookie = `targetMonthValue= ${this.getTargetMonth()}; max-age=${time}`;
+        document.cookie = `incomePeriodValue= ${this.calcPeriod()}; max-age=${time}`;  
+    }
+    getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+          "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+    checkCookie() {
+        for (let i = 0; i < localStorage.length; i++){
+            if (localStorage.getItem(localStorage.key(i)) !== appData.getCookie(localStorage.key(i))){
+                appData.reset(); 
+            }
+        }
     }
     addBlock(cls, itms, btn) {
         let cloneItem = itms[0].cloneNode(true);
@@ -244,6 +254,7 @@ class AppData {
         cancel.style.display = 'none';
         depositBank.disabled = false;
         localStorage.clear();
+        this.setCoockie(-1);
     }
     checkOut() {
         placeHolderName.forEach((item) => {
@@ -308,6 +319,7 @@ class AppData {
 }
 const appData = new AppData();
 
+setInterval(appData.checkCookie, 1000);
 appData.checkOut();
 appData.eventsListeners();
 
