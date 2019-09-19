@@ -448,6 +448,31 @@ window.addEventListener('DOMContentLoaded', () => {
     const carousel = new SliderCarousel(options);
 
     carousel.init();
+    
+    const calc = () => {
+        let calcInput = document.querySelectorAll('input[type="number"]');
+        calcInput.forEach((elem) => {
+            if(elem.value != /\d/) {
+                elem.value.replace(/[a-z]/i, '');
+            }
+        });
+    };
+    calc();
+
+    const comand = () => {
+        let imgs = document.querySelectorAll('.command__photo');
+        
+        imgs.forEach((elem) =>{
+            let src = elem.src;
+            elem.addEventListener('mouseenter', (event) => {
+                event.target.src = event.target.dataset.img;
+            });
+            elem.addEventListener('mouseleave', (event) => {
+                event.target.src = src;
+            });
+        });
+    };
+    comand();
 
     
 });
