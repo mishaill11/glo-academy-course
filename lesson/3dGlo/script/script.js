@@ -449,18 +449,61 @@ window.addEventListener('DOMContentLoaded', () => {
 
     carousel.init();
     
-    const calc = () => {
-        let calcInput = document.querySelectorAll('input[type="number"]');
+    const calc = (price) => {
+        const calcInput = document.querySelectorAll('input[type="number"]'),
+            calcBlock = document.querySelector('.calc-block'),
+            calcType = document.querySelector('.calc-type'),
+            totalValue = document.querySelector('#total');
+        
         calcInput.forEach((elem) => {
             if(elem.value != /\d/) {
                 elem.value.replace(/[a-z]/i, '');
             }
         });
+        
+        const countSum = () => {
+            let total = 0,
+            countValue = 1,
+            dayValue = 1;
+            const typeValue = calcType.options[calcType.selectedIndex].value,
+                squareValue = +calcInput[0].value;
+            
+            if(calcInput[1].value > 1) {
+                countValue += (calcInput[1].value - 1) / 10;
+            }
+
+            if (calcInput[2].value && calcInput[2].value < 5) {
+                dayValue *= 2;
+            } else if (calcInput[2].value && calcInput[2].value < 10) {
+                dayValue *= 1.5;
+            }
+
+            if (typeValue && squareValue) {
+                total = price * typeValue * squareValue * countValue * dayValue;
+            }
+            if (total > 0) {
+                let num = 0;
+                let interval = setInterval(() => {
+                    totalValue.textContent = num+=50;
+                    if (num == total) {
+                        clearInterval(interval);
+                    }
+                }, 5);
+            }
+            
+        };
+        calcBlock.addEventListener('change', (event) => {
+            const target = event.target;
+
+            if (target.matches('select') || target.matches('input')) {
+                countSum();
+            }
+        });
     };
-    calc();
+    calc(100);
 
     const comand = () => {
-        let imgs = document.querySelectorAll('.command__photo');
+        const imgs = document.querySelectorAll('.command__photo');
         
         imgs.forEach((elem) =>{
             let src = elem.src;
@@ -473,6 +516,5 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     };
     comand();
-
     
 });
