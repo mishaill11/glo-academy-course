@@ -479,16 +479,17 @@ window.addEventListener('DOMContentLoaded', () => {
             }
 
             if (typeValue && squareValue) {
-                total = price * typeValue * squareValue * countValue * dayValue;
+                total = Math.floor(price * typeValue * squareValue * countValue * dayValue);
             }
             if (total > 0) {
                 let num = 0;
-                let interval = setInterval(() => {
+                let interval = setInterval(() => {                   
                     totalValue.textContent = num+=50;
-                    if (num == total) {
-                        clearInterval(interval);
+                    if (num >= total) {
+                        totalValue.textContent = num-(num-total);
+                        clearInterval(interval);    
                     }
-                }, 5);
+                }, 1);
             }
             
         };
