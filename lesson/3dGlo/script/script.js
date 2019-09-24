@@ -517,5 +517,59 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     };
     comand();
+
+    const sendForm = (wind) => {
+        // const errorMessage = 'Что-то пошло не так...',
+        //     loadMessage = 'Загрузка...',
+        //     successMessage = 'Спасибо!';
+
+        const form = document.querySelector(wind);
+        
+        
+        const statusMessage = document.createElement('div');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            form.appendChild(statusMessage);
+            statusMessage.style.color = `#fff`;
+            statusMessage.innerHTML = `<img style='width: 50px; height: 50px;' src='./images/imgs/loading.gif'>`;
+
+            const formData = new FormData(form);
+            let body = {};
+            formData.forEach((val, key) =>{
+                body[key] = val;
+            });
+            postData(body, () => {
+                statusMessage.innerHTML = `<img style='width: 50px; height: 50px;' src='./images/imgs/okey.png'>`;
+            }, (error) => {
+                statusMessage.innerHTML = `<img style='width: 50px; height: 50px;' src='./images/imgs/error.png>`;
+                console.error(error);
+            });
+            for (let key of form.elements){
+                if (key.type != 'submit'){
+                    key.value = '';
+                }
+            }
+        });
+
+        const postData = (body, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+            request.addEventListener('readystatechange', () => {
+                if (request.readyState !== 4) {
+                    return;
+                }
+                if (request.status === 200) {
+                    outputData();
+                } else {
+                    errorData(request.status); 
+                }
+            });
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send(JSON.stringify(body));
+        };
+    };
+    sendForm('#form1');
+    sendForm('#form2');
+    sendForm('#form3');
     
 });

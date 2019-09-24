@@ -56,7 +56,6 @@ class Validator{
             this.showError(target);
             this.error.add(target);
         }
-        console.log(this.error);
     }
 
     showError(elem){
@@ -109,7 +108,7 @@ class Validator{
             this.pattern.email = /^\w+@\w+\.\w{2,}$/;
         }
         if (!this.pattern.rus){
-            this.pattern.rus = /^[^A-Za-z]+$/;
+            this.pattern.rus = /^\W[^\.\,\!\?-_+=*\(\)]+$/;
         }
     }
 }
