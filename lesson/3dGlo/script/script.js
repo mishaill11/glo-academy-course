@@ -524,7 +524,13 @@ window.addEventListener('DOMContentLoaded', () => {
         //     successMessage = 'Спасибо!';
 
         const form = document.querySelector(wind);
-        
+        const inp = document.querySelectorAll('input[type="text"], .mess');
+        inp.forEach(elem =>{
+            elem.addEventListener('input', (event) => {
+                let target = event.target;
+                target.value = target.value.replace(/[A-Za-z0-9./,'"!&?*%]+/, '');
+            });
+        });
         
         const statusMessage = document.createElement('div');
         form.addEventListener('submit', (event) => {
