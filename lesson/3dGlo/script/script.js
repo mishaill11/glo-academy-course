@@ -456,11 +456,12 @@ window.addEventListener('DOMContentLoaded', () => {
             totalValue = document.querySelector('#total');
         
         calcInput.forEach((elem) => {
-            if(elem.value != /\d/) {
-                elem.value.replace(/[a-z]/i, '');
-            }
-        });
-        
+            elem.addEventListener('input', (event) => {
+                let target = event.target;
+                target.value = target.value.replace(/[A-Za-z./,'"!&?*%]+/, '');
+            });
+        });        
+
         const countSum = () => {
             let total = 0,
             countValue = 1,
@@ -524,7 +525,13 @@ window.addEventListener('DOMContentLoaded', () => {
         //     successMessage = 'Спасибо!';
 
         const form = document.querySelector(wind);
-        
+        const inp = document.querySelectorAll('input[type="text"], .mess');
+        inp.forEach(elem =>{
+            elem.addEventListener('input', (event) => {
+                let target = event.target;
+                target.value = target.value.replace(/[A-Za-z0-9./,'"!&?*%]+/, '');
+            });
+        });
         
         const statusMessage = document.createElement('div');
         form.addEventListener('submit', (event) => {
@@ -539,12 +546,15 @@ window.addEventListener('DOMContentLoaded', () => {
                 body[key] = val;
             });
             postData(body)
-                .then(() => {
-                statusMessage.innerHTML = `<img style='width: 50px; height: 50px;' src='./images/imgs/okey.png'>`;
+                .then((response) => {
+                    if (response.status !== 200) {
+                        throw new Error('status network not 200');
+                    }
+                    statusMessage.innerHTML = `<img style='width: 50px; height: 50px;' src='./images/imgs/okey.png'>`;
                 })
                 .catch((error) => {
-                statusMessage.innerHTML = `<img style='width: 50px; height: 50px;' src='./images/imgs/error.png>`;
-                console.error(error);
+                    statusMessage.innerHTML = `<img style='width: 50px; height: 50px;' src='./images/imgs/error.png>`;
+                    console.error(error);
                 });
             for (let key of form.elements){
                 if (key.type != 'submit'){
@@ -554,23 +564,13 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
         const postData = (body) => {
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-                request.addEventListener('readystatechange', () => {
-                    if (request.readyState !== 4) {
-                        return;
-                    }
-                    if (request.status === 200) {
-                        resolve();
-                    } else {
-                        reject(request.status); 
-                    }
-                });
-                request.open('POST', './server.php');
-                request.setRequestHeader('Content-Type', 'application/json');
-                request.send(JSON.stringify(body));
+            return fetch('./server.php', {
+                method: 'POST',
+                body: JSON.stringify(body),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
-            
         };
     };
     sendForm('#form1');
