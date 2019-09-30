@@ -4,7 +4,7 @@ function countTimer() {
         timerSeconds = document.querySelector('#timer-seconds');
 
     function getTimeRemaining(){
-    let dateStop = new Date('13 september 2019 07:51:00'),
+    let dateStop = new Date('10 october 2019 07:51:00'),
         dateNow = new Date().getTime(),
         timeRemaining = (dateStop - dateNow) / 1000,
         second = Math.floor(timeRemaining % 60),

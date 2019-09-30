@@ -5,19 +5,34 @@ const showPopup = () => {
     count = 20;
 
     popupContent.style.transform = `translateY(-100%)`;
+    
     popupContent.style.opacity = '0';
 
     function step(){
         let move = requestAnimationFrame(step);
         count--;
+        
         if (count >= 0 && document.documentElement.clientWidth >= 600){
             popupContent.style.transform = `translateY(-${count}%)`;
+            
             popupContent.style.opacity = '1';
             popupContent.style.transition = 'opacity .5s';                
         } else {
-            popupContent.style.transform = `translateY(0)`;
-            cancelAnimationFrame(move);
+            cancelAnimationFrame(move); 
         }
+        
+        if ( count >= 0 && document.documentElement.clientWidth <= 600){
+            
+            popupContent.style.opacity = '1';
+            popupContent.style.transform = `translateY(-${count})`;
+            
+            popupContent.style.transform = `translateX(-15%)`;
+            
+            popupContent.style.transition = 'opacity .5s';
+                          
+        
+            cancelAnimationFrame(move);  
+        } 
     }
 
     popup.addEventListener('click', (event) => {
@@ -25,6 +40,7 @@ const showPopup = () => {
             if (target.classList.contains('popup-close')) {
                 popup.style.display = 'none';
                 popupContent.style.transform = `translateY(-100%)`;
+                
                 popupContent.style.opacity = '0';
                 count = 20;
             }else {
