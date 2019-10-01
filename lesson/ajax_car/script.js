@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
             request.setRequestHeader('Content-Type', 'application/json');
             request.send();
             request.addEventListener('readystatechange', () => {
-                if (request.readyState === 4 && request.status === 200) {
-                    const data = JSON.parse(request.responseText);
-                        console.log(data);
-                        resolve(data);
+                if (request.readyState !== 4){
+                    return;
+                }
+                if(request.status === 200) {
+                    resolve(request);
                 } else {
                     reject();
                 }
@@ -22,7 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
            
         });
         promise
-            .then((data) => {data.cars.forEach(item => {
+            .then((request) => {
+                const data = JSON.parse(request.responseText);
+                data.cars.forEach(item => {
                 if (item.brand === select.value) {
                 const {brand, model, price} = item;
                 
