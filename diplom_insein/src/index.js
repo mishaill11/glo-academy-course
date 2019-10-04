@@ -7,3 +7,7 @@ import 'es6-promise';
 import 'fetch-polyfill';
 import elementClosest from 'element-closest';
 elementClosest(window);
+
+import showNumber from './modules/showNumber';
+
+showNumber();
