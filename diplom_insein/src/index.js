@@ -10,6 +10,8 @@ elementClosest(window);
 
 import showNumber from './modules/showNumber';
 import showMenu from './modules/showMenu';
+import movePage from './modules/movePage';
 
 showNumber();
 showMenu();
+movePage();
