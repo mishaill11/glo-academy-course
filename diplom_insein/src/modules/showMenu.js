@@ -2,7 +2,12 @@
 
 const showMenu = () => {
     const popupDialogMenu = document.querySelector('.popup-dialog-menu'),
-        body = document.querySelector('body');
+        popupMenuNavItem = document.querySelectorAll('.popup-menu-nav__item'),
+        body = document.querySelector('body'),
+        allDiv = document.querySelectorAll(`.main, .formula, .repair-types, .portfolio,
+        .transparency, .problems, .designs, .director, .reviews, .scheme, .faq, .partners`);
+
+    let scroll = document.documentElement.scrollTop;
 
         body.addEventListener('click', (event) => {
             const target = event.target;
@@ -23,6 +28,31 @@ const showMenu = () => {
                 popupDialogMenu.style.right = 0;
                 popupDialogMenu.style.top = 0;
             }
+            
+        });
+        popupMenuNavItem.forEach(elem => {
+            elem.addEventListener('click', event => {
+                let id = event.target.hash,
+                    arrId = [...id];
+                arrId.shift();
+                arrId = arrId.join('');
+                const pageMove = () => {
+                    let move = requestAnimationFrame(pageMove);
+                    scroll += 75.5;
+                    allDiv.forEach(elem => {
+                        if (arrId === elem.id) {
+                            if (scroll <= elem.offsetTop) {
+                                document.documentElement.scrollTop = scroll;
+                            } 
+                            else {
+                                cancelAnimationFrame(move);
+                            }
+                        }
+                    });
+                };
+                requestAnimationFrame(pageMove);
+                scroll = document.documentElement.scrollTop;
+            });
         });
 };
 
