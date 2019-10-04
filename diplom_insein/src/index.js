@@ -9,5 +9,7 @@ import elementClosest from 'element-closest';
 elementClosest(window);
 
 import showNumber from './modules/showNumber';
+import showMenu from './modules/showMenu';
 
 showNumber();
+showMenu();
