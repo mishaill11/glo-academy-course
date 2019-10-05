@@ -35,6 +35,6 @@ const maskPhone = (selector, masked = '+7 (___) ___-__-__') => {
 	elem.addEventListener("input", mask);
 	elem.addEventListener("focus", mask);
 	elem.addEventListener("blur", mask);
-}
+};
 
 export default maskPhone;

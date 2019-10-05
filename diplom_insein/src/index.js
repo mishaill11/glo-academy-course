@@ -13,6 +13,7 @@ import showMenu from './modules/showMenu';
 import movePage from './modules/movePage';
 import fullList from './modules/fullList';
 import maskPhone from './modules/maskPhone';
+import privacy from './modules/privacy';
 
 showNumber();
 showMenu();
@@ -23,3 +24,4 @@ maskPhone('#feedback-input2');
 maskPhone('#feedback-input3');
 maskPhone('#feedback-input4');
 maskPhone('#feedback-input5');
+privacy();
