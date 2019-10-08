@@ -19,6 +19,10 @@ import hintMobileSlider from './modules/hintMobileSlider';
 import repairTypes from './modules/repairTypes';
 import repairTypesSliders from './modules/repairTypesSliders';
 import portfolioSlider from './modules/portfolioSlider';
+import transparencySlider from './modules/transparencySlider';
+import design from './modules/design';
+import tabs from './modules/tabs';
+import accordeon from './modules/accordeon';
 
 showNumber();
 showMenu();
@@ -35,3 +39,7 @@ hintMobileSlider();
 repairTypes();
 repairTypesSliders();
 portfolioSlider();
+transparencySlider();
+design();
+tabs();
+accordeon();

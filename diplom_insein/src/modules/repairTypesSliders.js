@@ -13,7 +13,7 @@ const repairTypesSliders = () => {
     let count = 0;
     let current = 1;
     sliders.forEach(elem => {
-        console.log(elem);
+        
     });
     // for (let key of repairTypesSlider.children) {
     //     if (key.classList.contains('add')) {

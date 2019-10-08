@@ -79,7 +79,7 @@ const repairTypes = () => {
                     arrowRight.addEventListener('click', () => {
                         changeSlide();
                         count++;
-                            console.log(count);
+                            
                             contentCurrent.textContent = count;
                             cont = contentCurrent.textContent;
 
@@ -89,7 +89,7 @@ const repairTypes = () => {
                     });
                     cont -=1;
                     arrowLeft.addEventListener('click', () => {
-                        console.log(cont);
+                        
                                    count--;
                                              
                         contentCurrent.textContent = cont--;        
