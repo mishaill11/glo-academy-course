@@ -8,16 +8,10 @@ const accordeon = () => {
         let target = event.target;
         if (target.closest('.title_block')) {
             titleBlock.forEach(elem => {
-                if (target === elem) {
-                    if (bool === true){
-                        elem.classList.remove('msg-active');
-                        bool = false;
-                    } else if (bool === false) {
-                        elem.classList.add('msg-active');
-                        bool = true;
-                    }
+                if (target !== elem || target.classList.contains('msg-active')) {
+                    elem.classList.remove('msg-active');
                 } else {
-                    elem.classList.remove('msg-active'); 
+                    elem.classList.add('msg-active'); 
                 }
             });
         }
