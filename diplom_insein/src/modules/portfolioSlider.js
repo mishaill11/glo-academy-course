@@ -29,23 +29,23 @@ const portfolioSlider = () => {
     const arrows = (i) => {
         
         let target = event.target;
-        if (target === arrowRight) {
+        if (target.closest('#portfolio-arrow_right')) {
             portfolioSlider.children[count].style.display = 'none';
             count++;
            
             cont = count;
             if (count > 0) {
-                arrowLeft.style.display = 'block';
+                arrowLeft.style.display = 'flex';
             }
             if (count === i) {
                 arrowRight.style.display = 'none';
                 count = 0;
             }
         }
-        if (target === arrowLeft) {
+        if (target.closest('#portfolio-arrow_left')) {
             
             if (count < i) {
-                arrowRight.style.display = 'block';
+                arrowRight.style.display = 'flex';
             }
             cont--;
             count = cont;
