@@ -1,7 +1,8 @@
 'use strict';
 
 const repairTypes = () => {
-    const repairTypesNavItem = document.querySelectorAll('.repair-types-nav__item'),
+    const repairTypes = document.querySelector('.repair-types'), 
+    repairTypesNavItem = document.querySelectorAll('.repair-types-nav__item'),
     navListRepair = document.querySelector('.nav-list-repair'),
     sliders = document.querySelectorAll('.types-repair1, .types-repair2, .types-repair3, .types-repair4, .types-repair5'),
     contentTotal = document.querySelector('.slider-counter-content__total'),
@@ -12,126 +13,80 @@ const repairTypes = () => {
     arrowRight = document.querySelector('#repair-types-arrow_right');
 
     let contentCurrent = document.querySelector('.slider-counter-content__current');
-    
-    
-    
-    if (navListRepair.children[0].classList.contains('active')){
-        let count = 0;
-        sliders[0].style.display = 'block';
-        contentCurrent.textContent = count;
-        contentTotal.textContent = sliders[0].children.length;
-        const sliderRepair = (i) => {
-            const changeSlide = () => {
-                for (let key of sliders[i].children){
-                    key.style.display = 'none';
-                }
-                sliders[i].children[count].style.display = 'block';
-                
-            };
-        
-            sliderWrap.addEventListener('click', event => {
-                
-                let target = event.target;
-                
-                
-                changeSlide();
-                if (target.closest('#repair-types-arrow_right')){
-                    count++;
-                    
-                    contentCurrent.textContent = count;
-                } else if (target.closest('#repair-types-arrow_left')){
-                    count--;
-                }
-                
-                if (count >= sliders[i].children.length) {
-                    count = 0;
-                } else if (count < 0) {
-                    count = sliders[i].children.length -1;
-                }
-                changeSlide();
-                
-            });
-        };
-        sliderRepair(0);
-    }
-    let count = 0;
-    navListRepair.addEventListener('click', event => {
-        //count = 1;
-        let cont =0;
+    let numSlider = 0, count = 0, left = 0;
+    contentTotal.textContent = sliders[0].children.length;
+    repairTypes.addEventListener('click', event => {
         let target = event.target;
-            target = target.closest('.repair-types-nav__item');
-        if (target) {
-            repairTypesNavItem.forEach((elem, i) => {
-                if (elem === target) {
-  
+        if (target.closest('.repair-types-nav__item')) {
+            repairTypesNavItem.forEach((elem,i) => {
+                if (target === elem) {
+                    for (let key of sliders) {
+                        key.style.display = 'none';
+                    }
                     elem.classList.add('active');
                     sliders[i].style.display = 'block';
-                    
+                    contentCurrent.textContent = 1;
                     contentTotal.textContent = sliders[i].children.length;
-                    // const sliderRepair = () => {
-                    const changeSlide = () => {
-                        for (let key of sliders[i].children){
-                            key.style.display = 'none';
-                        }
-                        sliders[i].children[count].style.display = 'block';
-                        
-                    };
-                    arrowRight.addEventListener('click', () => {
-                        changeSlide();
-                        count++;
-                            
-                            contentCurrent.textContent = count;
-                            cont = contentCurrent.textContent;
-
-                            if (count >= sliders[i].children.length) {
-                                count = 0;
-                            }
-                    });
-                    cont -=1;
-                    arrowLeft.addEventListener('click', () => {
-                        
-                                   count--;
-                                             
-                        contentCurrent.textContent = cont--;        
-                        if (cont < 0) {
-                            cont = sliders[i].children.length-1;
-                        }
-                        changeSlide(); 
-                    });
-                    // sliderWrap.addEventListener('click', event => {
-                        
-                    //     let target = event.target;
-                        
-                        
-                    //     changeSlide();
-                    //     if (target === arrowRight){
-                    //         count++;
-                    //         console.log(count);
-                    //         contentCurrent.textContent = count;
-                    //     }else 
-                    //     if (target === arrowLeft){
-                    //        count--;
-                    //        contentCurrent.textContent = count;
-                    //     } 
-                        
-                    //     if (count >= sliders[i].children.length) {
-                    //         count = 0;
-                    //     } else if (count < 0) {
-                    //         count = sliders[i].children.length-1;
-                    //     }
-                    //     changeSlide();
-                        
-                    // });
-                // };
-                // sliderRepair();
+                    numSlider = i;
+                    count = 0;
                 } else {
                     elem.classList.remove('active');
-                    sliders[i].style.display = 'none';
-                    
                 }
+                
             });
         }
+        if (target.closest('#repair-types-arrow_left')){
+            for (let key of sliders[numSlider].children){
+                key.style.display = 'none';
+            }
+            if (count <= 0) {
+                count = sliders[numSlider].children.length;
+            }
+            count--;
+            sliders[numSlider].children[count].style.display = 'block';
+            contentCurrent.textContent = count+1;
+            
+           console.log(sliders[numSlider]);  
+        }
+        if (target.closest('#repair-types-arrow_right')){
+            for (let key of sliders[numSlider].children){
+                key.style.display = 'none';
+            }count++;
+            if (count >= sliders[numSlider].children.length){
+                count = 0;
+            }
+            contentCurrent.textContent = count + 1;
+            sliders[numSlider].children[count].style.display = 'block';
+            
+           console.log(sliders[numSlider]);  
+        }
+        if (target.closest('#nav-arrow-repair-left_base')){
+            if (document.documentElement.clientWidth <= 1024 && document.documentElement.clientWidth > 575){
+                left-=100;
+                navListRepair.style.position = 'relative';
+                navListRepair.style.left = left+'px';
+                if (left <= -500) {
+                    left = 100;
+                }
+            } else if (document.documentElement.clientWidth <= 575){
+                if (left <= -900) {
+                    left = 100;
+                }
+                left-=100;
+                navListRepair.style.position = 'relative';
+                navListRepair.style.left = left+'px';
+                
+            }
+        } else if (target.closest('#nav-arrow-repair-right_base')){
+            left = 0;
+            if (document.documentElement.clientWidth <= 1024){
+                navListRepair.style.position = 'relative';
+                navListRepair.style.left = 0 +'px';
+            }
+        }
     });
+
+    
     if(document.documentElement.clientWidth < 1024) {
         let left = 0;
         navListRepair.style.position = 'relative';

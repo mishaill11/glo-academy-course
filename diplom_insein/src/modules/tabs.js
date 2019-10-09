@@ -34,7 +34,7 @@ const tabs = () => {
                 }
             } else if (document.documentElement.clientWidth <= 575){
                 if (left <= -900) {
-                    left = 0;
+                    left = 100;
                 }
                 left-=100;
                 schemeList.style.position = 'relative';
