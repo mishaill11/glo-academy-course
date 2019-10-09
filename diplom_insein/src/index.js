@@ -24,6 +24,7 @@ import design from './modules/design';
 import tabs from './modules/tabs';
 import accordeon from './modules/accordeon';
 import consult from './modules/consult';
+import reviews from './modules/reviews';
 
 showNumber();
 showMenu();
@@ -46,3 +47,4 @@ design();
 tabs();
 accordeon();
 consult();
+reviews();
