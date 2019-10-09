@@ -26,6 +26,7 @@ import accordeon from './modules/accordeon';
 import consult from './modules/consult';
 import reviews from './modules/reviews';
 
+
 showNumber();
 showMenu();
 movePage();

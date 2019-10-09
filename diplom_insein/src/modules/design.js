@@ -3,7 +3,7 @@
 const design = () => {
     const   designs = document.querySelector('.designs'), 
         designsNavItemBase = document.querySelectorAll('.designs-nav__item_base'),
-        navListDesigns = document.querySelector('.nav-list-designs'),
+        sliderWrap = document.querySelector('.designs-slider-wrap'),
         designsSlider = document.querySelector('.designs-slider'),
         previewBlock = document.querySelectorAll('.preview-block'),
         previewBlockItemInner = document.querySelectorAll('.preview-block__item-inner'),
@@ -12,14 +12,17 @@ const design = () => {
         linkListDesigns = document.querySelector('.link-list-designs'),
         navItemPopUp = document.querySelectorAll('.designs-nav__item_popup'),
         popupDesignSlider = document.querySelector('.popup-design-slider'),
-        popupSliderSlide = document.querySelectorAll('.popup-design-slider__style-slide'),
-        popupSliderWrap = document.querySelector('.popup-design-slider-wrap'),
+        navListDesigns = document.querySelector('.nav-list-designs'),
+        navListPopup = document.querySelector('#nav-list-popup-designs'),
         popupDesignText = document.querySelectorAll('.popup-design-text'),
         popupDesignsCounter = document.querySelector('#popup-designs-counter'),
-        current = popupDesignsCounter.querySelector('.slider-counter-content__current'),
-        total = popupDesignsCounter.querySelector('.slider-counter-content__total');
+        popupCurrent = popupDesignsCounter.querySelector('.slider-counter-content__current'),
+        popupTotal = popupDesignsCounter.querySelector('.slider-counter-content__total'),
+        current = sliderWrap.querySelector('.slider-counter-content__current'),
+        total = sliderWrap.querySelector('.slider-counter-content__total');
 
-        
+        let right = 0, left = 0,count = 0, numSlide = 0, popupCount = 0, popupNumSlide = 0;
+        total.textContent = designsSlider.children[0].children.length;
         designs.addEventListener('click', event => {
             let target = event.target;
             if (target.closest('.designs-nav__item_base')) {
@@ -28,10 +31,11 @@ const design = () => {
                         elem.classList.add('active');
                         for(let key of designsSlider.children){
                             key.style.display = 'none';
-                            console.log(key);
                         }
+                        numSlide = i;
+                        count = 0;
+                        total.textContent = designsSlider.children[i].children.length;
                         designsSlider.children[i].style.display = 'block';
-                        console.log(previewBlock[i]);
                         previewBlock[i].classList.add('visible');
                         for (let key of designSliderSlides){
                             key.style.display = 'block';
@@ -53,20 +57,60 @@ const design = () => {
                     }
                 });
             }
-            if (target.closest('#design_right')) {
-                
-                
-                    // if (){
-                    //     count = 0;
-                    // }count++;designSliderSlides[count].style.display = 'block';
-                    // console.log(previewBlock[0].children.length);
-                
-                
+            if (document.documentElement.clientWidth <= 1024){
+                total.textContent = designsSlider.children[0].children.length;
+                if (target.closest('#design_right')) {
+                    for (let key of designsSlider.children[numSlide].children){
+                        key.style.display = 'none';
+                    }
+                    count++;
+                    if (count >= designsSlider.children[numSlide].children.length){
+                        count = 0;
+                    }
+                    current.textContent = count + 1;
+                    designsSlider.children[numSlide].children[count].style.display = 'block';  
+                }
+                if (target.closest('#design_left')) {
+                    for (let key of designsSlider.children[numSlide].children){
+                        key.style.display = 'none';
+                    }
+                    if (count <= 0){
+                        count = designsSlider.children[numSlide].children.length;
+                    }
+                    count--;
+                    current.textContent = count + 1;
+                    designsSlider.children[numSlide].children[count].style.display = 'block';  
+                }
+                if (target.closest('#nav-arrow-designs_left')){
+                    if (document.documentElement.clientWidth <= 1024 && document.documentElement.clientWidth > 575){
+                        left-=100;
+                        navListDesigns.style.position = 'relative';
+                        navListDesigns.style.left = left+'px';
+                        if (left <= -500) {
+                            left = 100;
+                        }
+                    } else if (document.documentElement.clientWidth <= 575){
+                        if (left <= -700) {
+                            left = 100;
+                        }
+                        left-=100;
+                        navListDesigns.style.position = 'relative';
+                        navListDesigns.style.left = left+'px';
+                        
+                    }
+                } else if (target.closest('#nav-arrow-designs_right')){
+                    left = 0;
+                    if (document.documentElement.clientWidth <= 1024){
+                        navListDesigns.style.position = 'relative';
+                        navListDesigns.style.left = 0 +'px';
+                    }
+                }
             }
             if (target.closest('.link-list-designs')){
                 popupDesign.style.visibility = 'visible';
             }
-        });let count = 0;
+        });
+        popupTotal.textContent = popupDesignSlider.children[0].children.length;
         popupDesign.addEventListener('click', event => {
             
             let target = event.target;
@@ -79,15 +123,14 @@ const design = () => {
                             key.style.display = 'none';
                             
                         }
+                        popupCount = 0;
                         popupDesignSlider.children[i].style.display = 'block';
+                        popupCurrent.textContent = 1;
+                        popupTotal.textContent = popupDesignSlider.children[i].children.length;
                         
-                        total.textContent = popupDesignSlider.children[i].children.length;
-                        for (let key of popupSliderSlide){
-                            key.style.display = 'block';
-                        }
 
                         popupDesignText[i].classList.add('visible-content-block');
-                        
+                        popupNumSlide = i;
                     }
                     else {
                         elem.classList.remove('active');
@@ -95,30 +138,66 @@ const design = () => {
                     }
                     
                 });
-            }current.textContent = 1;
+            }
             if (target.closest('#popup_design_right')) {
-                count++;
-                current.textContent = count;
-                navItemPopUp.forEach((elem, i) => {
-                    if (elem.classList.contains('active')){
-                        for(let key of popupDesignSlider.children){
-                            key.style.display = 'none';
-                            
-                        }
-                    if (count >= popupDesignSlider.children[i].children.length) {
-                        count = 0;
-                        }
-                        for(let key of popupDesignSlider.children[i].children){
-                            key.style.display = 'none';
-                                
-                        }
-                        popupDesignSlider.children[i].style.display = 'block';
-                        popupDesignSlider.children[i].children[count].style.display = 'block';
-                        
+                for (let key of popupDesignSlider.children[popupNumSlide].children){
+                    key.style.display = 'none';
+                }
+                popupCount++;
+                if (popupCount >= popupDesignSlider.children[popupNumSlide].children.length){
+                    popupCount = 0;
+                }
+                popupCurrent.textContent = popupCount + 1;
+                popupDesignSlider.children[popupNumSlide].children[popupCount].style.display = 'block';
+            }
+            if (target.closest('#popup_design_left')) {
+                for (let key of popupDesignSlider.children[popupNumSlide].children){
+                    key.style.display = 'none';
+                }
+                if (popupCount <= 0){
+                    popupCount = popupDesignSlider.children[popupNumSlide].children.length;
+                }
+                popupCount--;
+                popupCurrent.textContent = popupCount + 1;
+                popupDesignSlider.children[popupNumSlide].children[popupCount].style.display = 'block';
+            }
+            if (target.closest('#design_left')) {
+                for (let key of designsSlider.children[numSlide].children){
+                    key.style.display = 'none';
+                }
+                if (count <= 0){
+                    count = designsSlider.children[numSlide].children.length;
+                }
+                count--;
+                current.textContent = count + 1;
+                designsSlider.children[numSlide].children[count].style.display = 'block';  
+            }
+            if (target.closest('#nav-arrow-popup-designs_left')){
+                if (document.documentElement.clientWidth <= 1024 && document.documentElement.clientWidth > 575){
+                    left-=100;
+                    navListPopup.style.position = 'relative';
+                    navListPopup.style.left = left+'px';
+                    if (left <= -500) {
+                        left = 100;
                     }
+                } else if (document.documentElement.clientWidth <= 575){
+                    if (left <= -700) {
+                        left = 100;
+                    }
+                    left-=100;
+                    navListPopup.style.position = 'relative';
+                    navListPopup.style.left = left+'px';
                     
-                });
-                console.log(count);
+                }
+            } else if (target.closest('#nav-arrow-popup-designs_right')){
+                left = 0;
+                if (document.documentElement.clientWidth <= 1024){
+                    navListPopup.style.position = 'relative';
+                    navListPopup.style.left = 0 +'px';
+                }
+            }
+            if (!target.closest('.popup-dialog-design') || target.matches('.close')) {
+                popupDesign.style.visibility = 'hidden';
             }
         });
 

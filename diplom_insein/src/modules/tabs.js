@@ -43,16 +43,9 @@ const tabs = () => {
             }
         } else if (target.closest('#nav-arrow-scheme_right')){
             
-            if (document.documentElement.clientWidth <= 1024 && document.documentElement.clientWidth > 900){
+            if (document.documentElement.clientWidth <= 1024){
                 schemeList.style.position = 'relative';
                 schemeList.style.left = 0 +'px';
-            }else if (document.documentElement.clientWidth <= 900 && document.documentElement.clientWidth > 575){
-                schemeList.style.position = 'relative';
-                schemeList.style.left = 0 +'px';
-            } else if (document.documentElement.clientWidth <= 575){
-                schemeList.style.position = 'relative';
-                schemeList.style.left = 0 +'px';
-                
             }
         }
     });

@@ -46,7 +46,7 @@ const repairTypes = () => {
             sliders[numSlider].children[count].style.display = 'block';
             contentCurrent.textContent = count+1;
             
-           console.log(sliders[numSlider]);  
+             
         }
         if (target.closest('#repair-types-arrow_right')){
             for (let key of sliders[numSlider].children){
@@ -58,7 +58,7 @@ const repairTypes = () => {
             contentCurrent.textContent = count + 1;
             sliders[numSlider].children[count].style.display = 'block';
             
-           console.log(sliders[numSlider]);  
+            
         }
         if (target.closest('#nav-arrow-repair-left_base')){
             if (document.documentElement.clientWidth <= 1024 && document.documentElement.clientWidth > 575){
@@ -85,30 +85,6 @@ const repairTypes = () => {
             }
         }
     });
-
-    
-    if(document.documentElement.clientWidth < 1024) {
-        let left = 0;
-        navListRepair.style.position = 'relative';
-        navArrowLeft.addEventListener('click', () => {
-            left -= 150;
-            if (left < -650){
-                left = 0;
-            }
-            navListRepair.style.left = left + 'px';
-            
-        });
-        navArrowRight.addEventListener('click', () => {
-            left += 150;
-            if (left > 0){
-                left = 0;
-            }
-            navListRepair.style.left = left + 'px';
-        });
-    }
-    
-
-
 };
 
 export default repairTypes;
