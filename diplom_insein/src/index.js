@@ -25,7 +25,7 @@ import tabs from './modules/tabs';
 import accordeon from './modules/accordeon';
 import consult from './modules/consult';
 import reviews from './modules/reviews';
-
+import carousel from './modules/carousel';
 
 showNumber();
 showMenu();
@@ -49,3 +49,4 @@ tabs();
 accordeon();
 consult();
 reviews();
+carousel();
