@@ -8,6 +8,7 @@ const hintBoard = () => {
     formulaSlider = document.querySelector('.formula-slider'),
     formulaSliderWrap = document.querySelector('.formula-slider-wrap'),
     formulaSliderSlide = document.querySelectorAll('.formula-slider__slide'),
+    sliderArrow = formulaSliderWrap.querySelectorAll('.slider-arrow'),
     body = document.querySelector('body');
 
     let formulaItemSlider = formulaSlider.querySelectorAll('.formula-item'), count = 0;
@@ -17,7 +18,10 @@ const hintBoard = () => {
         formulaSlider.style.display = 'flex';
         formulaSlider.style.overflow = 'hidden';
         formulaSliderWrap.style.display = 'flex';
+        formulaSliderWrap.style.height = '800px';
         formulaSliderWrap.style.justifyContent = 'center';
+        sliderArrow[0].style.top = '40%';
+        sliderArrow[1].style.top = '40%';
         formulaItemSlider.forEach(elem =>{
             elem.style.width = '300px';
         });
@@ -26,62 +30,34 @@ const hintBoard = () => {
             elem.style.width = '300';
             elem.style.opacity = '1';
         });
-        // body.addEventListener('click', event => {
-        //     formulaItemSlider = formulaSlider.querySelectorAll('.formula-item');
-
-        //     let target = event.target;
+        
+        formulaItemSlider[1].children[0].children[0].style.visibility = 'visible';
+        formulaItemSlider[1].children[0].children[0].style.opacity = 1;
+        body.addEventListener('click', event => {
+            formulaItemSlider = formulaSlider.querySelectorAll('.formula-item');
+            let target = event.target;
             
-            
-        //     if (target.closest('#formula-arrow_left')){
-        //         count -= formulaItemSlider[0].clientWidth;
-        //         if (count < -(formulaItemSlider[0].clientWidth * 3)){
-        //             count = 0;
-        //         }
-        //         formulaItemSlider.forEach((elem,i) => {
-        //             elem.style.left = count + 'px';
-        //             formulaItemPopup[7].style.visibility = 'hidden';
-        //         });
-                
-         
-        //     }
-        //     if (target.closest('#formula-arrow_right')){
-        //         count += formulaItemSlider[0].clientWidth;
-                              
-        //         if (count >= 0){
-        //             count = 0;
-        //         }
-        //         formulaItemSlider.forEach(elem => {
-        //             elem.style.left = count + 'px';
-        //         });
-        //     }
-        //     if (target.closest('.formula-item')) {
-        //         formulaItemSlider = formulaSlider.querySelectorAll('.formula-item');
-        //         formulaItemSlider.forEach((elem, i) =>{
-        //             if (target === elem){
-                    
-        //                 formulaItemPopup[i+6].style.visibility = 'visible';
-        //                 formulaItemPopup[i+6].style.opacity = 1;
-        //             }else if (target !== elem){
-                        
-        //                 formulaItemPopup[i+6].style.visibility = 'hidden';
-        //                 formulaItemPopup[i+6].style.opacity = 0;  
-        //             }
-        //         });
-                
-        //         console.log('target: ', target);
-        //     }
-            
-        // });
-
+            if (target.closest('#formula-arrow_left')){
+                formulaItemSlider[formulaItemSlider.length-1].after(formulaItemSlider[0]);
+                console.log(formulaItemSlider[2]);
+                formulaItemSlider[2].children[0].children[0].style.visibility = 'visible';
+                formulaItemSlider[2].children[0].children[0].style.opacity = 1;
+                formulaItemSlider[1].children[0].children[0].style.visibility = 'hidden';
+            }
+            if (target.closest('#formula-arrow_right')){
+                formulaItemSlider[0].before(formulaItemSlider[formulaItemSlider.length-1]);
+                formulaItemSlider[0].children[0].children[0].style.visibility = 'visible';
+                formulaItemSlider[0].children[0].children[0].style.opacity = 1;
+                formulaItemSlider[1].children[0].children[0].style.visibility = 'hidden';
+            }
+        });
     }
         body.addEventListener('mouseover', event => {
             let target = event.target;
+            target = target.closest('.formula-item__icon');
             formulaItemIcon.forEach((elem, i) => {
-                if (target.closest('.formula-item__icon') === elem) {
+                if (target === elem) {
                     let div = document.createElement('div');
-                    
-                        
-                    
                     if (i < 6){
                         formulaItemPopup[i].parentNode.parentNode.parentNode.style.zIndex = 100;
                     }
@@ -104,8 +80,7 @@ const hintBoard = () => {
                     if (i < 6){
                     formulaItemPopup[i].style.visibility = 'hidden';
                     formulaItemIconInner[i].style.opacity = 0;
-                    
-                        formulaItemPopup[i+1].parentNode.parentNode.parentNode.style.zIndex = '';
+                    formulaItemPopup[i+1].parentNode.parentNode.parentNode.style.zIndex = '';
                     }
                 }
                 

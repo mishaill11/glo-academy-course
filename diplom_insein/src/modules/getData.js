@@ -10,7 +10,7 @@ const getData = () => {
         popupButton,
         left = 0;
 
-    fetch('../db/db.json')
+    fetch('./db/db.json')
         .then((response) => {
             if (response.status !== 200) {
                 throw new Error('status network not 200');
