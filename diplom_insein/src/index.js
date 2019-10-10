@@ -26,9 +26,16 @@ import consult from './modules/consult';
 import reviews from './modules/reviews';
 import carousel from './modules/carousel';
 import getData from './modules/getData';
+import sendForm from './modules/sendForm';
 
 showNumber();
 showMenu();
+sendForm('#feedback1');
+sendForm('#feedback2');
+sendForm('#feedback3');
+sendForm('#feedback4');
+sendForm('#feedback5');
+sendForm('#feedback6');
 movePage();
 fullList();
 maskPhone('#feedback-input1');
