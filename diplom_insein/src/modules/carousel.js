@@ -10,7 +10,6 @@ const carousel = () => {
         sliderWrapper.style.justifyContent = 'center';
         partnersSlider.style.display = 'flex';
         partnersSlider.style.justifyContent = 'center';
-        partnersSlider.style.width = '750px';
         partnersSlider.style.overflow = 'hidden';
         partnersSlider.style.position = 'relative';
         partnersSlider.style.width = partnersSliderSlides[0].clientWidth * 3 + 'px';
