@@ -9,7 +9,7 @@ const fullList = () => {
         body.addEventListener('click', (event)=>{
             if (event.target === elem){
                 popupTepairTypes.style.visibility = 'visible';
-            } else if (event.target === popupTepairTypes){
+            } else if (event.target === popupTepairTypes || event.target.closest('.close')){
                 popupTepairTypes.style.visibility = 'hidden';
             }
         });

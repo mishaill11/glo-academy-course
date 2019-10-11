@@ -3,8 +3,6 @@
 const transparencySlider = () => {
     const slider = document.querySelector('.transparency-slider').children,
         sliderWrap = document.querySelector('.transparency-slider-wrap'),
-        arrowLeft = document.querySelector('#transparency_left'),
-        arrowRight = document.querySelector('#transparency_right'),
         popupTransparency = document.querySelector('.popup-transparency'),
         transparencyItemImg = document.querySelectorAll('.transparency-item__img'),
         popupDialogTransparency = document.querySelector('.popup-dialog-transparency'),

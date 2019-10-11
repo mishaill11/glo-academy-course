@@ -129,42 +129,6 @@ const portfolioSlider = () => {
                 
             }
             
-            popupPortfolioRight.addEventListener('click', (event) => {
-                
-                for (let key of popupPortSlider) {
-                    key.style.display = 'none';
-                }
-                for (let key of popupPortfolioText){
-                    key.style.display = 'none';
-                }
-                
-                popCount++;
-                if (popCount >= popupPortSlider.length) {
-                    popCount = 0;
-                }
-                popupPortSlider[popCount].style.display = 'block';
-                popupPortfolioText[popCount].style.display = 'block';
-                popupPortfolioLeft.style.display = 'block';
-                popupCurrent.textContent = popCount+1;
-            });
-            popupPortfolioLeft.addEventListener('click', () => {
-                for (let key of popupPortSlider) {
-                    key.style.display = 'none';
-                }
-                for (let key of popupPortfolioText){
-                    key.style.display = 'none';
-                }
-                
-                if (popCount === 0) {
-                    popCount = popupPortSlider.length;
-                }
-                popCount--;
-                popupPortSlider[popCount].style.display = 'block';
-                popupPortfolioText[popCount].style.display = 'block';
-                popupPortfolioRight.style.display = 'block';
-                
-                popupCurrent.textContent = popCount + 1;
-            });
             popupPortfolio.addEventListener('click', (event)=>{
                 let target = event.target;
                 if (!target.closest('.popup-dialog-portfolio') || target.matches('.close')){
@@ -172,6 +136,42 @@ const portfolioSlider = () => {
                     popupDialogPortfolio.style.visibility = 'hidden';
                     popupPortfolioSlider.style.visibility = 'hidden';
                 }
+                if (target.closest('#popup_portfolio_left')) {
+                    for (let key of popupPortSlider) {
+                        key.style.display = 'none';
+                    }
+                    for (let key of popupPortfolioText){
+                        key.style.display = 'none';
+                    }
+                    
+                    if (popCount === 0) {
+                        popCount = popupPortSlider.length;
+                    }
+                    popCount--;
+                    popupPortSlider[popCount].style.display = 'block';
+                    popupPortfolioText[popCount].style.display = 'block';
+                    popupPortfolioRight.style.display = 'block';
+                    
+                    popupCurrent.textContent = popCount + 1;
+                }
+                if (target.closest('#popup_portfolio_right')) {
+                    for (let key of popupPortSlider) {
+                        key.style.display = 'none';
+                    }
+                    for (let key of popupPortfolioText){
+                        key.style.display = 'none';
+                    }
+                    
+                    popCount++;
+                    if (popCount >= popupPortSlider.length) {
+                        popCount = 0;
+                    }
+                    popupPortSlider[popCount].style.display = 'block';
+                    popupPortfolioText[popCount].style.display = 'block';
+                    popupPortfolioLeft.style.display = 'block';
+                    popupCurrent.textContent = popCount+1;
+                }
+
             });
         });
     });

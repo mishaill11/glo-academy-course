@@ -3,7 +3,7 @@
 const accordeon = () => {
     const accordion = document.querySelector('.accordion'),
     titleBlock = document.querySelectorAll('.title_block');
-    let bool = true;
+    
     accordion.addEventListener('click', event => {
         let target = event.target;
         if (target.closest('.title_block')) {

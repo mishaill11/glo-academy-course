@@ -11,7 +11,6 @@ const sendForm = (number) => {
             
             return item.tagName.toLowerCase() !== 'button' && item.type !== 'button';
         });
-        console.log(elementsForm);
 
         const isEmpty = (elementsForm) => {
             let numOfEmpty = 0;

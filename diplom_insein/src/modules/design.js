@@ -9,7 +9,6 @@ const design = () => {
         previewBlockItemInner = document.querySelectorAll('.preview-block__item-inner'),
         designSliderSlides = document.querySelectorAll('.designs-slider__style-slide'),
         popupDesign = document.querySelector('.popup-design'),
-        linkListDesigns = document.querySelector('.link-list-designs'),
         navItemPopUp = document.querySelectorAll('.designs-nav__item_popup'),
         popupDesignSlider = document.querySelector('.popup-design-slider'),
         navListDesigns = document.querySelector('.nav-list-designs'),
@@ -21,7 +20,7 @@ const design = () => {
         current = sliderWrap.querySelector('.slider-counter-content__current'),
         total = sliderWrap.querySelector('.slider-counter-content__total');
 
-        let right = 0, left = 0,count = 0, numSlide = 0, popupCount = 0, popupNumSlide = 0;
+        let left = 0,count = 0, numSlide = 0, popupCount = 0, popupNumSlide = 0;
         total.textContent = designsSlider.children[0].children.length;
         designs.addEventListener('click', event => {
             let target = event.target;

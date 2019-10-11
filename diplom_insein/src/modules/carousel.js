@@ -1,6 +1,7 @@
 'use strict';
 
 const carousel = () => {
+    
     const partners = document.querySelector('.partners'),
         sliderWrapper = partners.querySelector('.wrapper'),
         partnersSlider = partners.querySelector('.partners-slider');
@@ -10,8 +11,9 @@ const carousel = () => {
         sliderWrapper.style.justifyContent = 'center';
         partnersSlider.style.display = 'flex';
         partnersSlider.style.justifyContent = 'center';
-        partnersSlider.style.overflow = 'hidden';
         partnersSlider.style.position = 'relative';
+        partnersSlider.style.overflow = 'hidden';
+        partnersSlider.style.msOverflowStyle = 'none';
         partnersSlider.style.width = partnersSliderSlides[0].clientWidth * 3 + 'px';
             
         if (document.documentElement.clientWidth <= 575) {
